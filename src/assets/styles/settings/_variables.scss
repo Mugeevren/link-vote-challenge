@@ -1,0 +1,114 @@
+/*
+=====================================
+		Colors
+=====================================
+ */
+$color-primary-background: #f5f5f5;
+$color-secondary-background: #DEDDDD;
+
+$color-success-background: #CBF6CD;
+$color-success: #49A94D;
+$color-error-background: #F7CDCB;
+$color-error: #ff6259;
+$color-red: #aa251e;
+
+$color-primary: #2c3e50;
+$color-border-gray: #a9a9a9;
+
+$color-default-light: rgba(0,0,0,0.87);
+
+$color-text-secondary: rgba(0,0,0,0.54);
+$color-text-secondary-light: rgba(0,0,0,0.25);
+
+$color-background-dark: #000;
+$color-background-light: #f8f8f8;
+$color-background-light-accent: #fff;
+
+/*
+=====================================
+		Fonts
+=====================================
+ */
+$base-font-size: 16px;
+$base-line-height: 1.2;
+
+$base-font-size-mobile: 20px;
+$base-line-height-mobile: 1.4em;
+
+$font-mono: 'Fira Mono', monospace;
+$font-daimler-regular: 'Daimler CS Regular', sans-serif;
+$font-daimler-regular-italic: 'Daimler CS Italic', sans-serif;
+$font-daimler-demi: 'Daimler CS Demi', sans-serif;
+$font-daimler-bold: 'Daimler CS Bold', sans-serif;
+
+/*
+=====================================
+		Sizes
+=====================================
+ */
+$navigation-height-mobile: 55px;
+$navigation-height-desktop: 65px;
+
+$page-padding-x: 5vw;
+$page-padding-y: 3vh;
+$page-padding-mobile-x: 50px;
+$page-padding-mobile-y: 35px;
+
+$button-height: 50px;
+$label-height: 25px;
+
+/*
+=====================================
+		Breakpoints (min-width/mobile first) - same as vuetify defined breakpoints.
+=====================================
+ */
+@mixin breakpoint($class) {
+
+	@if $class == xs-only {
+		@media only screen and (max-width: 599px) { @content; }
+	}
+
+	@else if $class == sm-only {
+		@media only screen and (min-width: 600px) and (max-width: 959px) { @content; }
+	}
+
+	@else if $class == sm-and-down {
+		@media only screen and (max-width: 959px) { @content; }
+	}
+
+	@else if $class == sm-and-up {
+		@media only screen and (min-width: 600px)  { @content; }
+	}
+
+	@else if $class == md-only {
+		@media only screen and (min-width: 960px) and (max-width: 1263px) { @content; }
+	}
+
+	@else if $class == md-and-down {
+		@media only screen and (max-width: 1263px) { @content; }
+	}
+
+	@else if $class == md-and-up {
+		@media only screen and (min-width: 960px) { @content; }
+	}
+
+	@else if $class == lg-only {
+		@media only screen and (min-width: 1264px) and (max-width: 1903px) { @content; }
+	}
+
+	@else if $class == lg-and-down{
+		@media only screen and (max-width: 1903px) { @content; }
+	}
+
+	@else if $class == lg-and-up {
+		@media only screen and (min-width: 1264px) { @content; }
+	}
+
+	@else if $class == xl-only {
+		@media only screen and (min-width: 1904px) { @content; }
+	}
+
+	@else {
+		@warn "Breakpoint mixin: Invalid parameter given.";
+	}
+}
