@@ -8,7 +8,7 @@ import 'vuetify/dist/vuetify.min.css'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import Notifications from 'vue-notification'
 
-Vue.use(Vuetify);
+Vue.use(Vuetify)
 Vue.use(Notifications)
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)

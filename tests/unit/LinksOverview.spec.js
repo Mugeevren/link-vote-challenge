@@ -21,10 +21,8 @@ describe('LinksOverview.vue', () => {
         points: 4
     }].sort((a, b) => b.id - a.id)
 	};
-	const actions = {
-		createLink: jest.fn()
-	};
-
+  
+  let mockRouterPush;
 	let wrapper = null;
 
 	afterEach(() => {
@@ -32,17 +30,29 @@ describe('LinksOverview.vue', () => {
 			wrapper.destroy();
 			wrapper = null;
 		}
-	})
+  })
+  
+  beforeEach(()=> {
+    mockRouterPush = jest.fn()
+  })
 
 	const createWrapper = (overrides = {}) => {
 		let localVue = createLocalVue();
     localVue.use(Vuex);
 
-		const store = new Vuex.Store({ getters, actions });
+		const store = new Vuex.Store({ getters });
 
 		const defaultConfig = {
 			localVue,
-      store
+      store,
+      mocks: {
+				$router: {
+					push: mockRouterPush,
+				},
+				$route: {
+					path: '/',
+				},
+			},
 		};
 		return mount(LinksOverview, merge(defaultConfig, overrides));
 	}
@@ -56,6 +66,14 @@ describe('LinksOverview.vue', () => {
     const wrapper = createWrapper();
     let submitButton = wrapper.find('[data-label="link-create-button"]');
     expect(submitButton.exists()).toBe(true);
+  })
+
+  it('should redirect to submit link page when button clicked', () => {
+    const wrapper = createWrapper();
+    let submitButton = wrapper.find('[data-label="link-create-button"]');
+    submitButton.trigger('click');
+    expect(mockRouterPush).toHaveBeenCalledTimes(1)
+    expect(mockRouterPush).toHaveBeenCalledWith('/createlink')
   })
 
   it('should display all links as a link', async () => {

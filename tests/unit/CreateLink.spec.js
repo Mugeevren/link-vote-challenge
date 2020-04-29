@@ -11,6 +11,11 @@ describe('CreateLink.vue', () => {
 	};
 
 	let wrapper = null;
+	let mockRouterPush;
+
+	beforeEach(() => {
+		mockRouterPush = jest.fn()
+	})
 
 	afterEach(() => {
 		if (wrapper) {
@@ -21,13 +26,21 @@ describe('CreateLink.vue', () => {
 
 	const createWrapper = (overrides = {}) => {
 		let localVue = createLocalVue();
-    	localVue.use(Vuex);
+		localVue.use(Vuex);
 
 		const store = new Vuex.Store({ actions });
 
 		const defaultConfig = {
 			localVue,
-      store
+			store,
+			mocks: {
+				$router: {
+					push: mockRouterPush,
+				},
+				$route: {
+					path: '/createlink',
+				},
+			},
 		};
 		return shallowMount(CreateLink, merge(defaultConfig, overrides));
 	}
@@ -35,6 +48,14 @@ describe('CreateLink.vue', () => {
   it('should create wrapper properly', () => {
     const wrapper = createWrapper();
     expect(wrapper.find('[data-label="create-link-container"]').exists()).toBe(true);
+  })
+
+  it('should redirect to link list page when return to list button clicked', () => {
+	const wrapper = createWrapper();
+	let returnButton = wrapper.find('[data-label="link-create-button"]');
+	returnButton.trigger('click');
+	expect(mockRouterPush).toHaveBeenCalledTimes(1)
+	expect(mockRouterPush).toHaveBeenCalledWith('/')
   })
 
 })
